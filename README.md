@@ -3,93 +3,84 @@ Membuat pemrograman fungai tambah, fungsi tampilkan, fungsi hapus, fungsi ubah m
 
 # Codingan 
 ```
-class Item:
-    def __init__(self, name, price, quantity):
-        self.name = name
-        self.price = price
-        self.quantity = quantity
-        
-    def total_price(self):
-        return self.price * self.quantity
-
-class CashRegister:
+class DataMahasigma : 
     def __init__(self):
-        self.items = []
-        self.payment_amount = 0
-        self.change = 0
-         
-    def add_item(self, name, price, quantity):
-        new_item = Item(name, price, quantity)
-        self.items.append(new_item)
-        print(f"Item '{name}' added with price {price} and quantity {quantity}.")
+        self.DataMahasigma = []
+    
+    def tambah(self, nama, nilai): 
+        self.DataMahasigma.append({"nama" : nama, "nilai": nilai})
+        print(f'data {nama} berhasil di tambahkan')
         
-    def display_items(self):
-        if not self.items:
-            print("No items in the cart.")
-            return
-        print("\n--- Items in the Cart ---")
-        for idx, item in enumerate(self.items, 1):
-            print(f"{idx}. {item.name} - {item.price:.2f} x {item.quantity} = {item.total_price():.2f}")
-            print("\n")
-    def calculate_total(self):
-        total = sum(item.total_price() for item in self.items)
-        return total
-    def process_payment(self):
-        total = self.calculate_total()
-        print(f"\n Total Amount: {total:.2f}")
-        while True:
-            try:
-                payment = float(input("Masukan total: "))
-                if payment < total:
-                    print("pembayaran gagal. Silahkan masukkan nominal yang benar. ")
-                else: 
-                    self.payment_amount = payment 
-                    self.change = payment - total
-                    change = payment - total
-                    print(f"kembalian : {change :.2f}")
-                    return
-            except ValueError:
-                print("input tidak valid")
-    def print_receipt(self):
-        if not self.items:
-            print("No items to print on the receipt.")
-            return
-        print("\n====== Receipt ======")
-        for item in self.items:
-            print(f"{item.name} - {item.price:.2f} x {item.quantity} = {item.total_price():.2f}")
-        total = self.calculate_total()
-        print("---------------------")
-        print(f"Total: {total:.2f}")
-        print(f"total pembayaran: {self.payment_amount:.2f} ")
-        print(f"kembalian: {self.change:.2f}")
-        print("=====================\n")
-    # Program utama
-def main():
-    register = CashRegister()
-    while True:
-        print("1. Add Item")
-        print("2. Display Items")
-        print("3. Print Receipt")
-        print("4. exit")
-        choice = input("Choose an option: ")
-        if choice == '1':
-            name = input("Enter item name: ")
-            price = float(input("Enter item price: "))
-            quantity = int(input("Enter item quantity: "))
-            register.add_item(name, price, quantity)
-        elif choice == '2':
-            register.display_items()
-        elif choice == '3':
-            register.process_payment()
-            register.print_receipt()
-        elif choice == '4':
-            print("Exiting the program. Thank you!")
-            break
+    def tampilkan (self):
+        if not self.DataMahasigma:
+            print("Data Tidak Di Temukan")
         else:
-                print("Invalid choice. Please try again.")
-                 
-if __name__ == "__main__":
-    main()
+            print("Daftar Nilai Mahasiswa")
+            for i, mahasiswa in enumerate(self.DataMahasigma, start= 1) :
+                print(f"{i}. Nama: {mahasiswa['nama']}\n   Nilai: {mahasiswa['nilai']}")
+                
+    def hapus (self, nama):
+        for mahasiswa in self.DataMahasigma:
+            if mahasiswa ['nama'] == nama:
+                self.DataMahasigma.remove(mahasiswa)
+                print(f"Data {nama} Mahaiswa Berhasil Di Hapus")
+                return
+        print("Data Tidak Di Temukan")
+    
+    def ubah (self, nama, nilai_baru):
+        for mahasiswa in self.DataMahasigma:
+            if mahasiswa ["nama"] == nama:
+                mahasiswa ["nilai"] = nilai_baru
+                print(f"Data {nama} Berhasil Di Ubah")
+                return
+            print("Data Tidak Di Temukan")
+                
+if __name__ == '__main__':
+    data = DataMahasigma()
+    
+    while True:
+        print("\n=====Menu Daftar Mahasiswa=====")
+        print("1. Tambah Data")
+        print("2. Tampilkan Data")
+        print("3. Hapus Data")
+        print("4. Ubah Data")  
+        print("5. Keluar")
+        
+        try :
+             pilihan = int(input("Masukan PIlihan (1-5): "))
+        except ValueError:
+            print("Masukkan angka yang valid!")
+            continue
+
+        if pilihan == 1:
+            nama = input("Masukkan nama mahasiswa: ")
+            try:
+                nilai = float(input("Masukkan nilai mahasiswa: "))
+                data.tambah(nama, nilai)
+            except ValueError:
+                print("Nilai harus berupa angka!")
+                
+        elif pilihan == 2:
+            data.tampilkan()
+            
+        elif pilihan == 3:
+            Nama = input("Masukan Nama Yang Ingin Di Hapus: ")
+            data.hapus(Nama)
+            
+        elif pilihan == 4:
+            Nama = input("Masukan Nama Mahasiswa Yang Ingin Di Ubah Nilainya: ")
+            try:
+                nilai_baru = input("Masukan Nilai Baru: ")
+                data.ubah(Nama, nilai_baru)
+            except ValueError:
+                print("Nilai Harus Berupa Angka")
+                
+        elif pilihan == 5:
+            print("Program telas Selesai, Terima Kasih")
+            break 
+        
+        else:
+            print("Pilihan Tidak Valid, Silakan Pilih Menu (1-5).")
 ```
 # Penjelasan
 Penjelasan Program Utama:
@@ -178,4 +169,5 @@ Masukan PIlihan (1-5): 5
 Program telas Selesai, Terima Kasih
 ```
 
-
+# Flowchart 
+![Flowchart](Flowchart_Labpy8.png)
